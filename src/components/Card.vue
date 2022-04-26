@@ -1,59 +1,133 @@
 <template>
-  <div>
-    <div class="contact-card">
-      <h3>teste</h3>
-      <h4>Contato: <span class="info">000000000</span></h4>
-      <h4>Email: <span class="info">teste@teste.com</span></h4>
-      <button id="action-btn">Editar</button>
-      <button id="action-btn">Excluir</button>
-      {{ contato }}
+  <div id="contact-card">
+    <Message :msg="msg" v-show="msg" />
+    <div>
+      <div id="user-heading">
+        <div id="user-id">#:</div>
+        <div>Nome:</div>
+        <div>Contato:</div>
+        <div>Email:</div>
+        <div>Ações</div>
+      </div>
+    </div>
+
+    <div id="user-rows">
+      <div class="user-row" v-for="contato in contatos" :key="contato.id">
+        <div class="user-number">{{ contato.id }}</div>
+        <div>{{ contato.nome }}</div>
+        <div>{{ contato.fone }}</div>
+        <div>{{ contato.mail }}</div>
+
+        <div>
+          <button class="delete-btn" @click="deletarContato(contato.id)">
+            Excluir Usuário
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import Message from './Message.vue'
 export default {
   name: 'Card',
+
   data() {
     return {
-      id: this.$route.params.id,
-      contato: [],
+      contatos: null,
+      contatos_id: null,
+      msg: null,
     }
   },
 
+  components: {
+    Message,
+  },
+
+  //carregar os usuários
+
+  methods: {
+    async getContatos() {
+      const req = await fetch('http://localhost:3004/contatos')
+
+      const data = await req.json()
+
+      this.contatos = data
+    },
+
+    async deletarContato(id) {
+      const req = await fetch(`http://localhost:3004/contatos/${id}`, {
+        method: 'DELETE',
+      })
+
+      const data = await req.json()
+
+      //mensagem de cadastro
+      this.msg = `Usuário removido com Sucesso, Have a nice day!`
+
+      //limpar a mensagem
+      setTimeout(() => (this.msg = ''), 3000)
+
+      this.getContatos()
+    },
+  },
+
   mounted() {
-    fetch('http://localhost3004/contatos')
-      .then((resp) => resp.json())
-      .then((data) => (this.contato = data))
+    this.getContatos()
   },
 }
 </script>
 
 <style scoped>
-h3 {
-  font-size: 20px;
+#contact-card {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-top: 30px;
 }
 
-h3,
-h4 {
-  padding: 5px;
-}
-
-#name-contact {
-  font-size: 17px;
-}
-
-.contact-card {
+#user-heading,
+#user-rows,
+.user-row {
   display: flex;
-  flex-direction: column;
-  width: max-content;
-  margin-top: 7%;
-  margin-left: 20%;
-  border: 1px solid black;
+  flex-wrap: wrap;
 }
 
-#action-btn {
-  width: 60px;
+#user-heading {
+  font-weight: bold;
+  padding: 12px;
+  border-bottom: 3px solid red;
+}
+
+#user-heading div,
+.user-row div {
+  width: 19%;
+}
+
+.user-row {
+  width: 100%;
+  padding: 12px;
+  border-bottom: 1px solid black;
+}
+
+select {
+  padding: 10px 6px;
+  margin-right: 12px;
+}
+
+.delete-btn {
+  background-color: gray;
+  color: white;
+  font-weight: bold;
+  padding: 10px;
+  font-size: 16px;
+  border: none;
+  border-radius: 4px;
   cursor: pointer;
+  transition: 0.5s;
+}
+
+.delete-btn:hover {
+  background-color: red;
 }
 </style>

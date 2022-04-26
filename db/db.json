@@ -1,52 +1,10 @@
 {
   "contatos": [
     {
-      "nome": "Matheus Battisti",
-      "fone": "000000000",
+      "nome": "erick",
+      "fone": "123456789",
       "mail": "teste@teste.com",
       "id": 1
-    },
-    {
-      "nome": "Erick Rodrigues",
-      "contato": "000000000",
-      "mail": "teste1@teste.com",
-      "id": 2
-    },
-    {
-      "nome": "teste",
-      "fone": "999999999",
-      "mail": "teste@teste.com",
-      "id": 3
-    },
-    {
-      "nome": "teste",
-      "fone": "999999999",
-      "mail": "teste@teste.com",
-      "id": 4
-    },
-    {
-      "nome": "ERICK RODRIGUES DOS SANTOS",
-      "fone": "995191202",
-      "mail": "profissional.erick@gmail.com",
-      "id": 5
-    },
-    {
-      "nome": "Erick",
-      "fone": "999999999",
-      "mail": "marialuizateste@gmail.com",
-      "id": 6
-    },
-    {
-      "nome": "joao",
-      "fone": "909090909",
-      "mail": "teste@teste.com",
-      "id": 7
-    },
-    {
-      "nome": "teste",
-      "fone": "987665476",
-      "mail": "teste@teste.com",
-      "id": 8
     }
   ]
 }
